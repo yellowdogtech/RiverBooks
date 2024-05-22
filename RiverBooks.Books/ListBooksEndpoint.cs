@@ -9,13 +9,13 @@ internal class ListBooksEndpoint(IBookService bookService) :
 
     public override void Configure()
     {
-        Get("/api/v2/books");
+        Get("/api/books");
         AllowAnonymous();
     }
 
     public override async Task HandleAsync(CancellationToken ct = default)
     {
-        var books = _bookService.ListBooks();
+        var books = await _bookService.ListBooksAsync();
         await SendAsync(new ListBooksResponse
         {
             Books = books
